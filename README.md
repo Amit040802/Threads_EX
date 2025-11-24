@@ -30,7 +30,7 @@ The final value increased only once (one update is lost).
 When method declared as synchronized, then lock of the current object (this) before executing the method, and releases it when the method returns. 
 This means that for a given 'Foo' instance, only one thread at a time is allowed to execute the synchronized methods.
 
-Before this change, bar++ was not atomic. Two threads could read the same old value of bar, increase it, and write it back, and one update would be lost. 
+Before this change, 'bar++' was not atomic. Two threads could read the same old value of bar, increase it, and write it back, and one update would be lost. 
 s a result, the final value of bar was smaller than 20,000 even though each of the threads performed 10,000 increases.
 
 After adding synchronized, only one thread can run 'baz' at a time on the shared object 'Foo, so the program prints the correct result: 20000.
@@ -64,5 +64,7 @@ However, the time is now much larger than in Task 6.
 All 10 threads must acquire the same lock lots of times. This forces the threads to wait and perform many context switches. 
 Conclusion: We pay a significant performance cost for using synchronization.
 Task 6 and 7 demonstrate the trade-off:
+
 -Without synchronization: fast but incorrect.
+
 -With synchronization: correct but slower.
